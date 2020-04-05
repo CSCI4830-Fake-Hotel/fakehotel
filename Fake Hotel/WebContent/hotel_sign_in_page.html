@@ -38,12 +38,17 @@
 
         input[type=text] {
             width: 90%;
-            padding: 0.5em;
+            padding: 12px 20px;
             margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: "Noto Sans", sans-serif;
         }
 
         input[type=submit] {
-            width: 90%;
+            width: 25%;
             background-color: #AE91E5;
             color: white;
             padding: 14px 20px;
@@ -51,8 +56,6 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-family: "Noto Sans", sans-serif;
-            margin-left: 3em;
         }
 
         .dropdown {
@@ -96,11 +99,14 @@
 
         .center {
             width: 800px;
-            height: 260px;
+            height: 340px;
             background:rgba(0, 0, 0, 0.5);
             color: white;
             font-family: 'Noto Sans', sans-serif;
             border-radius: 5px;
+            position: absolute;
+            left: 20%;
+            top: 25%;
         }
 
         #background img {
@@ -344,25 +350,6 @@
 </head>
 <body>
     <form>
-        <div id="confModal" class="modal">
-            <div class="model-content">
-                <span class="closeConf">&times;</span>
-                    <div>
-                        <img id="conference" src="fancy_conference_room.jpg" style="height:500px; width: 500px;margin-left: 32.75em;">
-                        <p style="font-size: medium;color: white;" align="center">General layout of our conference rooms. </p>
-                    </div>
-            </div>
-        </div>
-        <div id="ballroomModal" class="modal">
-            <div class="model-content">
-                <span class="closeBlrm">&times;</span>
-                <div>
-                    <img id="ballroomA" src="conference_room_a.jpg" style="height:500px; width: 500px;margin-left: 15em;">
-                    <img id="ballroomB" src="conference_room_b.jpg" style="height:500px; width: 500px;margin-left: 1em;">
-                    <p style="font-size: medium;color: white;" align="center">On the left is a picture of the Grand Ballroom A; on the right, a picture of the Grand Ballroom B.</p>
-                </div>
-            </div>
-        </div>
     <div id="background">
         <img src="https://images.dailyhive.com/20190923083339/shutterstock_1508803526.jpg">
     <header>
@@ -374,79 +361,26 @@
     </header>
     </div>
     <main>
-        <div align="center">
-            <a href="#" class="linkbutton" id="conferenceButton">View Conference Room Layout</a>
-            <a href="#" class="linkbutton" id="ballroomButton">View Ballroom Layouts</a>
-        </div>
-        <div class="date today">
-            <div class="dateInfo">
-                <div class="name">April</div>
-                <div class="day">1</div>
-            </div>
-            <div class="eventHolder">
-                <div class="event public">
-                    <div class="eventInfoHolder">
-                        <div class="eventInfo">
-                            <h1 class="eventTitle">25th Annual Changes in Financial Analyzation Methods Conference</h1>
-                            <h2 class="eventDescription">Grand Ballroom B</h2>
-                        </div>
-                    </div>
+        <div class="container">
+            <div class="center">
+                <div align="left">
+                    <p style="font-size:17px;margin-left: 1em;">Username:</p>
                 </div>
-            </div>
-        </div>
-        <div class="date today">
-            <div class="dateInfo">
-                <div class="name">April</div>
-                <div class="day">3</div>
-            </div>
-            <div class="eventHolder">
-                <div class="event private">
-                    <div class="eventInfoHolder">
-                        <div class="eventInfo">
-                            <h1 class="eventTitle">JPM Stakeholder's Meeting</h1>
-                            <h2 class="eventDescription">AVP Conference Room</h2>
-                        </div>
-                    </div>
+                <div align="center">
+                    <input type="text" id="username" required>
                 </div>
-                <div class="event public">
-                    <div class="eventInfoHolder">
-                        <div class="eventInfo">
-                            <h1 class="eventTitle">DeCoulter County Young Adult Robotics Competition</h1>
-                            <h2 class="eventDescription">Grand Ballroom A</h2>
-                        </div>
-                    </div>
+                <div align="left">
+                    <p style="font-size:17px;margin-left: 1em;">Password:</p>
                 </div>
-            </div>
-        </div>
-        <div class="date today">
-            <div class="dateInfo">
-                <div class="name">April</div>
-                <div class="day">10</div>
-            </div>
-            <div class="eventHolder">
-                <div class="event private">
-                    <div class="eventInfoHolder">
-                        <div class="eventInfo">
-                            <h1 class="eventTitle">Raymond Family Birthday Party</h1>
-                            <h2 class="eventDescription">Johnson Conference Room</h2>
-                        </div>
-                    </div>
+                <div align="center">
+                    <input type="text" id="password" required>
                 </div>
-            </div>
-        </div>
-        <div class="date today">
-            <div class="dateInfo">
-                <div class="name">April</div>
-                <div class="day">21</div>
-            </div>
-            <div class="eventHolder">
-                <div class="event public">
-                    <div class="eventInfoHolder">
-                        <div class="eventInfo">
-                            <h1 class="eventTitle">DeCoulter County Middle School Science Fair</h1>
-                            <h2 class="eventDescription">Grand Ballroom A</h2>
-                        </div>
-                    </div>
+                <div align="center">
+                    <input type="submit" id="signUp" value="Sign Up">
+                    <input type="submit" id="signIn" style="margin-left: 1em;" value="Sign In">
+                </div>
+                <div align="center">
+                    <p style="font-size:14px;">Having trouble signing in? Have you forgotten your password? Call our customer support number for help: 555-0827</p>
                 </div>
             </div>
         </div>
@@ -455,33 +389,8 @@
         &copy; 2020 FakeHotel, a subsidiary of OtherFakeHotel. All rights reserved.
     </footer>
     <script>
-        var confModal = document.getElementById("confModal");
-        var ballroomModal = document.getElementById("ballroomModal");
-
-        // Get the button that opens the modal
-        var confBtn = document.getElementById("conferenceButton");
-        var blrmBtn = document.getElementById("ballroomButton");
-
-        // Get the <span> element that closes the modal
-        var spanConf = document.getElementsByClassName("closeConf")[0];
-        var spanBlrm = document.getElementsByClassName("closeBlrm")[0];
-
-        // When the user clicks the button, open the modal 
-        confBtn.onclick = function() {
-            confModal.style.display = "block";
-        }
-        blrmBtn.onclick = function() {
-            ballroomModal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        spanConf.onclick = function() {
-            confModal.style.display = "none";
-        }
-        spanBlrm.onclick = function() {
-            ballroomModal.style.display = "none";
-        }
-        </script>
+        
+    </script>
     </form>
 </body>
 </html>
