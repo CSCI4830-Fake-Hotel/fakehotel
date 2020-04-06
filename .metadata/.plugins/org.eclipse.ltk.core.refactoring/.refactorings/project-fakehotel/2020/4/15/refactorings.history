@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 6 elements from project &apos;project-fakehotel&apos;&#x0D;&#x0A;- Original project: &apos;project-fakehotel&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     DBConnection.java&#x0D;&#x0A;     MyServlet.java&#x0D;&#x0A;     MyServletDB.java&#x0D;&#x0A;     SimpleFormInsert.java&#x0D;&#x0A;     SimpleFormSearch.java&#x0D;&#x0A;     UtilProp.java" description="Delete elements" element1="/src&lt;{MyServletDB.java" element2="/src&lt;{UtilProp.java" element3="/src&lt;{SimpleFormInsert.java" element4="/src&lt;{DBConnection.java" element5="/src&lt;{SimpleFormSearch.java" element6="/src&lt;{MyServlet.java" elements="6" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1586130207348" subPackages="false" version="1.0"/>
+</session>
