@@ -1,0 +1,4 @@
+127.0.0.1 - - [26/Apr/2020:14:37:27 -0500] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [26/Apr/2020:14:37:29 -0500] "GET /project-fakehotel/hotel_sign_in.html HTTP/1.1" 200 10761
+0:0:0:0:0:0:0:1 - - [26/Apr/2020:14:37:38 -0500] "POST /project-fakehotel/HotelServlet HTTP/1.1" 404 1011
+0:0:0:0:0:0:0:1 - - [26/Apr/2020:14:37:38 -0500] "POST /project-fakehotel/HotelServlet HTTP/1.1" 404 1011
