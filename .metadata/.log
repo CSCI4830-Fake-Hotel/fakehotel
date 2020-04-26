@@ -265,3 +265,6 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.jst.server.tomcat.core 4 0 2020-04-26 14:57:05.654
 !MESSAGE The Tomcat server configuration at \Servers\Tomcat v7.0 Server at localhost (2)-config is missing. Check the server for errors.
+
+!ENTRY org.eclipse.jst.server.tomcat.core 4 0 2020-04-26 15:53:34.001
+!MESSAGE The Tomcat server configuration at \Servers\Tomcat v7.0 Server at localhost (2)-config is missing. Check the server for errors.

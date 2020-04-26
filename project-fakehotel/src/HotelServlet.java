@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import event.Event;
 import room.Room;
 
@@ -65,6 +70,29 @@ public class HotelServlet extends HttpServlet {
 			 */
 			System.out.println("go to event page");
 			List<Event> events = new ArrayList<Event>();
+			
+			Connection connection = null;
+		    
+		    boolean userCheck = false;
+		    
+		    try {
+		         DBConnection.getDBConnection(getServletContext());
+		         connection = DBConnection.connection;
+		         String selectSQL = "SELECT * FROM EVENTS";
+		         PreparedStatement preparedStmt = connection.prepareStatement(selectSQL);
+		         ResultSet rs = preparedStmt.executeQuery();
+		         while (rs.next()) {
+		        	 	Event newevent = new Event();
+		        	 	newevent.setDateDay(rs.getString("DateDay"));
+		        	 	newevent.setDateName(rs.getString("DateName"));
+		        	 	newevent.setEventDescription(rs.getString("description"));
+		        	 	newevent.setEventTitle(rs.getString("title"));
+		        	 	events.add(newevent);
+		         }
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		      }
+		    /*
 			Event event1 = new Event();
 			event1.setDateDay("1");
 			event1.setDateName("April");
@@ -77,6 +105,7 @@ public class HotelServlet extends HttpServlet {
 			event2.setEventTitle("JPM Stakeholder's Meeting");
 			events.add(event1);
 			events.add(event2);
+			*/
 			request.setAttribute("events", events);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("hotel_events.jsp");
 			requestDispatcher.forward(request, response);
@@ -90,8 +119,51 @@ public class HotelServlet extends HttpServlet {
 			/*
 			 * Transfer back to main page, but with log in information- this info should be stored in the database. 
 			 */
+
 			System.out.println("USERNAME: " + request.getParameter("username"));
 			System.out.println("PASSWORD: " + request.getParameter("password"));
+			
+			/*
+			 * SQL checking for user and inserting new info if not existing user
+			 */
+			String userName = request.getParameter("username");
+		    String password = request.getParameter("password");
+		    
+		    Connection connection = null;
+		    
+		    boolean userCheck = false;
+		    
+		    try {
+		         DBConnection.getDBConnection(getServletContext());
+		         connection = DBConnection.connection;
+		         String selectSQL = "SELECT * FROM USERS WHERE username LIKE ? AND password LIKE ?";
+		         PreparedStatement preparedStmt = connection.prepareStatement(selectSQL);
+		         preparedStmt.setString(1, userName);
+		         preparedStmt.setString(2, password);
+		         ResultSet rs = preparedStmt.executeQuery();
+		         while (rs.next()) {
+			            int userid = rs.getInt("userid");
+			            String username = rs.getString("username").trim();
+			            userCheck = true;  
+			     }
+		         
+		       
+		         if (!userCheck) {
+		        	 String insertSql = " INSERT INTO USERS (userid, username, password) values (default, ?, ?)";
+			         PreparedStatement preparedStmt2 = connection.prepareStatement(insertSql);
+			         preparedStmt2.setString(1, userName);
+			         preparedStmt2.setString(2, password);
+			         preparedStmt2.execute();
+			         connection.close();
+		        	 
+		         }
+		         else {
+			         System.out.println("Welcome Back");
+		         }
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		      }
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("hotel-mockup.html");
 			requestDispatcher.forward(request, response);
 		} else {

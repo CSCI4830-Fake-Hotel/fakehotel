@@ -1,8 +1,11 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import javax.servlet.ServletContext;
+
 public class DBConnection {
    static Connection connection = null;
+   static ServletContext servletContext;
 
    static void getDBConnection() {
       System.out.println("-------- MySQL JDBC Connection Testing ------------");
@@ -48,5 +51,9 @@ public class DBConnection {
       String pwd = UtilProp.getProp("password");
       System.out.println("[DBG] URL: " + pwd);
       return pwd;
+   }
+   public static void getDBConnection(ServletContext context) {
+	      servletContext = context;
+	      getDBConnection();
    }
 }
