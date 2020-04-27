@@ -49,6 +49,7 @@ public class HotelServlet extends HttpServlet {
 			/*
 			 * Partially hard-coded room which is used to test if the page is retrieving information from the front page correctly. 
 			 */
+			
 			String price = request.getParameter("price");
 			String check_in = request.getParameter("checkIn");
 			String check_out = request.getParameter("checkOut");
@@ -56,11 +57,31 @@ public class HotelServlet extends HttpServlet {
 			//response.getWriter().append("Price: " + price + " Check In Date: " + check_in + " Check Out Date: " + check_out);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("rooms.jsp");
 			List<Room> rooms = new ArrayList<Room>();
+			
+			Connection connection = null;
+			try {
+		         DBConnection.getDBConnection(getServletContext());
+		         connection = DBConnection.connection;
+		         String selectSQL = "SELECT * FROM ROOMS";
+		         PreparedStatement preparedStmt = connection.prepareStatement(selectSQL);
+		         ResultSet rs = preparedStmt.executeQuery();
+		         while (rs.next()) {
+			        	Room room = new Room();
+			 			room.setPrice(rs.getString("price"));
+			 			room.setFloor(rs.getString("floor"));
+			 			room.setGuests(rs.getInt("guests"));
+			 			rooms.add(room);
+		         }
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		      }
+			/*
 			Room room = new Room();
 			room.setPrice(price);
 			room.setFloor("3");
 			room.setGuests(2);
 			rooms.add(room);
+			*/
 			request.setAttribute("rooms", rooms);
 			requestDispatcher.forward(request, response);
 		} else if (request.getParameter("eventPage") != null && request.getParameter("eventPage").contentEquals("events_page")) {
@@ -73,7 +94,6 @@ public class HotelServlet extends HttpServlet {
 			
 			Connection connection = null;
 		    
-		    boolean userCheck = false;
 		    
 		    try {
 		         DBConnection.getDBConnection(getServletContext());
