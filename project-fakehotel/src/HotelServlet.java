@@ -62,14 +62,20 @@ public class HotelServlet extends HttpServlet {
 			try {
 		         DBConnection.getDBConnection(getServletContext());
 		         connection = DBConnection.connection;
-		         String selectSQL = "SELECT * FROM ROOMS";
+		         String selectSQL = "SELECT * FROM ROOMS WHERE pricerange LIKE ? AND check_in LIKE ? AND check_out LIKE ?";
+		         
 		         PreparedStatement preparedStmt = connection.prepareStatement(selectSQL);
+		         preparedStmt.setString(1, price);
+		         preparedStmt.setString(2, check_in);
+		         preparedStmt.setString(3, check_out);
 		         ResultSet rs = preparedStmt.executeQuery();
+		         
 		         while (rs.next()) {
 			        	Room room = new Room();
 			 			room.setPrice(rs.getString("price"));
 			 			room.setFloor(rs.getString("floor"));
 			 			room.setGuests(rs.getInt("guests"));
+			 			room.setBeds(rs.getInt("beds"));
 			 			rooms.add(room);
 		         }
 		      } catch (Exception e) {
@@ -93,12 +99,13 @@ public class HotelServlet extends HttpServlet {
 			List<Event> events = new ArrayList<Event>();
 			
 			Connection connection = null;
-		    
+		    boolean roomCheck = false;
 		    
 		    try {
 		         DBConnection.getDBConnection(getServletContext());
 		         connection = DBConnection.connection;
-		         String selectSQL = "SELECT * FROM EVENTS";
+		         
+		         String selectSQL = "SELECT * FROM USERS WHERE username LIKE ? AND password LIKE ?";
 		         PreparedStatement preparedStmt = connection.prepareStatement(selectSQL);
 		         ResultSet rs = preparedStmt.executeQuery();
 		         while (rs.next()) {

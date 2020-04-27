@@ -46,4 +46,11 @@ public class Room {
 		return this.floor;
 	}
 
+	public void setBeds(int beds) {
+		this.beds = beds;
+	}
+	
+	public int getBeds() {
+		return this.beds;
+	}
 }
