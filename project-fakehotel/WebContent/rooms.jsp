@@ -233,8 +233,10 @@
     		List<Room> rooms = (ArrayList<Room>)request.getAttribute("rooms");
     		for(Room room: rooms) {
     	%>
-    		<p>Price: <%=room.price%> </p>
+    		<p>Room Number: <%=room.roomnumber%> </p>
     		<p>Floor: <%=room.floor%> </p>
+    		<p>Price: <%=room.price%> </p>
+    		<p>Beds: <%=room.getBeds()%> </p>
     		<p>Guests: <%=room.guests%> </p>
     	<%}%>
     	</main>

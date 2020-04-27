@@ -76,6 +76,7 @@ public class HotelServlet extends HttpServlet {
 			 			room.setFloor(rs.getString("floor"));
 			 			room.setGuests(rs.getInt("guests"));
 			 			room.setBeds(rs.getInt("beds"));
+			 			room.setNumber(rs.getInt("roomid"));
 			 			rooms.add(room);
 		         }
 		      } catch (Exception e) {
