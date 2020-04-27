@@ -1,7 +1,6 @@
 # fakehotel
 
-Current update (as of 4/23-34):
-Everything on the front end is hooked up and working correctly- it responds dynamically, all it needs is the queries and
-a bit of data modification on the backend side. Signing up a new account has not been fixed- information entered while in the
-modal does not remain; other sign in information is retained as expected (i.e., if you enter your username and password when you
-already have an account, it will be recorded correctly and return you to the front page). 
+Current update (as of 4/27):
+We need to add a query to show user's current reservation. All other issues (besides a few more tests) have been taken care of. 
+
+In order to use the application, you can use the following link and head to the website:
