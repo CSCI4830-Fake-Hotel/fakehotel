@@ -72,6 +72,7 @@
         .button1 {
             letter-spacing: 0.13em;
             font-size: 0.8rem;
+            color: white;
             font-weight: bold;
             display: inline-block;
             padding: 0.75em;
@@ -88,7 +89,7 @@
 
         .center {
             width: 800px;
-            height: 260px;
+            height: 220px;
             background:rgba(0, 0, 0, 0.5);
             color: white;
             font-family: 'Noto Sans', sans-serif;
@@ -163,63 +164,6 @@
             width: 100%;
             height: 0.1rem;
         }
-        
-        .eventHolder {
-            flex: 1;
-            margin-left: 0.5em;
-        }
-
-        .event {
-            background-color: white;
-            margin-bottom: 1em;
-            border-left: 0.5em solid #888;
-        }
-
-        .event.private {
-            border-color: #C8A9D0;
-        }
-
-        .event.public {
-            border-color: #703380;
-        }
-
-        .event:last-child {
-            margin-bottom: 0;
-        }
-
-        .eventInfoHolder {
-           	flex-shrink: 2;
-        }
-
-        .eventInfo {
-            flex: 0;
-            padding: 0.25em;
-        }
-
-        .eventInfo h1 {
-        	width: 35px;
-            font-size: 1.0em;
-            margin: 0.10em 0;
-            font-weight: bold;
-        }
-
-        .eventInfo h2 {
-            font-size: 1.25em;
-            margin: 0.25em 0;
-            font-weight: normal;
-            color: #888;
-        }
-
-        .eventIcon {
-            padding: 1em;
-            color: rgba(0, 0, 0, 0.15);
-        }
-
-        .eventActionHolder {
-            text-align: right;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 0.5em;
-        }
 
         .popup {
             position: relative;
@@ -272,7 +216,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<form id="rooms_form">
+	<form id="sign_in_notice_form">
 		<div id="background">
         	<img src="https://images.dailyhive.com/20190923083339/shutterstock_1508803526.jpg">
     	<header>
@@ -286,38 +230,23 @@
     	</header>
     	</div>
     	<main>
-    	<%
-    		List<Room> rooms = (ArrayList<Room>)request.getAttribute("rooms");
-    		for(Room room: rooms) {
-    	%>
-    		<div class="eventHolder">
-    			<div class="event public">
-    				<div class="eventInfoHolder">
-    					<div class="eventInfo">
-    						<h1 class="eventTitle">
-    							Price: $<%=room.getPrice()%> Floor Number: <%=room.getFloor()%> <button class="button1" onClick="test(<%=room.getPrice()%>)">Book Room</button>
-    						</h1>
-    					</div>
-    				</div>
+    		<div class="container">
+    		<%String room_number = (String) request.getAttribute("room_number");%>
+    			<div class="center">
+    				<p style="font-size:20px;margin-left: 17.5em;">Success!</p>
+    				<p style="font-size:16px;margin-left: 5em;">You've booked room <%=room_number%>!</p>
+    				<p style="font-size:16px;margin-left: 5em;">Thank you for booking with us!</p>
+    				<p style="font-size:16px;margin-left: 5em;">Click the button below to return to the main page.</p>
+    				<button type="submit" class="button1" onClick="setPageMain()">Return to Main Page</button>
+    				<input type="hidden" name="mainPage" id="main_page"/>
     			</div>
     		</div>
-    	<%}%>
-    	<input type="hidden" name="testVar" id="test_var"/>
-    	<input type="hidden" name="mainPage" id="main_page"/>
     	</main>
     	<footer>
         	&copy; 2020 FakeHotel, a subsidiary of OtherFakeHotel. All rights reserved.
     	</footer>
 	</form>
 	<script>
-	function test(x) {
-		var test_var = document.getElementById('test_var');
-		test_var.value = x;
-		var set_page = document.getElementById('main_page');
-		set_page.value = "book_room";
-		submit();
-	}
-	
 	function setPageEvents() {
 		var set_page = document.getElementById('events_page');
 		set_page.value = "events_page";
@@ -327,6 +256,12 @@
 	function setPageSignIn() {
 		var set_page = document.getElementById('sign_in_page');
 		set_page.value = "sign_in";
+		submit();
+	}
+	
+	function setPageMain() {
+		var set_page = document.getElementById('main_page');
+		set_page.value = "after_booking";
 		submit();
 	}
 	
