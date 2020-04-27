@@ -238,6 +238,7 @@
     		<p>Price: <%=room.price%> </p>
     		<p>Beds: <%=room.getBeds()%> </p>
     		<p>Guests: <%=room.guests%> </p>
+    		<p></p>
     	<%}%>
     	</main>
     	<footer>

@@ -8,14 +8,16 @@ public class Room {
 	public int guests;
 	public String floor;
 	private int beds;
+	public int roomnumber;
 	
-	public Room(String price, String check_in, String check_out, int guests, String floor, int beds) {
+	public Room(String price, String check_in, String check_out, int guests, String floor, int beds, int roomnumber) {
 		this.price = price;
 		this.check_in = check_in;
 		this.check_out = check_out;
 		this.guests = guests;
 		this.floor = floor;
 		this.beds = beds;
+		this.roomnumber = roomnumber;
 	}
 	
 	public Room() {
@@ -52,5 +54,13 @@ public class Room {
 	
 	public int getBeds() {
 		return this.beds;
+	}
+	
+	public void setNumber(int roomnumber) {
+		this.roomnumber = roomnumber;
+	}
+	
+	public int getNumber() {
+		return this.roomnumber;
 	}
 }

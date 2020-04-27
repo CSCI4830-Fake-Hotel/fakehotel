@@ -105,7 +105,7 @@ public class HotelServlet extends HttpServlet {
 		         DBConnection.getDBConnection(getServletContext());
 		         connection = DBConnection.connection;
 		         
-		         String selectSQL = "SELECT * FROM USERS WHERE username LIKE ? AND password LIKE ?";
+		         String selectSQL = "SELECT * FROM EVENTS";
 		         PreparedStatement preparedStmt = connection.prepareStatement(selectSQL);
 		         ResultSet rs = preparedStmt.executeQuery();
 		         while (rs.next()) {

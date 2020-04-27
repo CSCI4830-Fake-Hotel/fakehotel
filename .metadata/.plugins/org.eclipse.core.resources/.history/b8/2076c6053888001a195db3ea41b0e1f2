@@ -236,7 +236,7 @@
     		<p>Room Number: <%=room.roomnumber%> </p>
     		<p>Floor: <%=room.floor%> </p>
     		<p>Price: <%=room.price%> </p>
-    		<p>Beds: <%=room.getBeds()%> </p>
+    		<p>Beds: <%=room.beds%> </p>
     		<p>Guests: <%=room.guests%> </p>
     	<%}%>
     	</main>
