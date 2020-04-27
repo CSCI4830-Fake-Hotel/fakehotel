@@ -76,6 +76,7 @@
             display: inline-block;
             padding: 0.75em;
             border-radius: 4px;
+            color: white;
             text-decoration: none;
             text-transform: uppercase;
             background-color: #AE91E5;
@@ -164,11 +165,51 @@
             height: 0.1rem;
         }
         
+        .dateHolder {
+            max-width: 60em;
+            margin: 0 auto;
+        }
+
+        .date {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2em;
+        }
+
+        .date:last-child {
+            margin-bottom: 0;
+        }
+
+        .date.past .dateInfo {
+            opacity: 0.05;
+        }
+
+        .date.today .dateInfo {
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+
+        .dateInfo {
+            flex: 0 0 3em;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0.5rem;
+            font-size: 1.25em;
+            font-weight: bold;
+            text-align: center;
+            color: white;
+            /* padding: 0.5em 0.25em; */
+            /* line-height: 1; */
+        }
+
+        .dateInfo .day {
+            font-size: 1em;
+        }
+        
         .eventHolder {
             flex: 1;
             margin-left: 0.5em;
         }
-
+        
         .event {
             background-color: white;
             margin-bottom: 1em;
@@ -188,18 +229,17 @@
         }
 
         .eventInfoHolder {
-           	flex-shrink: 2;
+            display: flex;
         }
 
         .eventInfo {
-            flex: 0;
-            padding: 0.25em;
+            flex: 1;
+            padding: 1em;
         }
 
         .eventInfo h1 {
-        	width: 35px;
-            font-size: 1.0em;
-            margin: 0.10em 0;
+            font-size: 1.5em;
+            margin: 0.25em 0;
             font-weight: bold;
         }
 
@@ -221,35 +261,6 @@
             padding: 0.5em;
         }
 
-        .popup {
-            position: relative;
-            display: inline-block;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        .popup .popuptext {
-            visibility: hidden;
-            width: 160px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px 0;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -80px;
-            opacity: 0.8;
-        }
-
-        .popup .show {
-            visibility: visible;
-            -webkit-animation: fadeIn 1s;
-            animation: fadeIn 1s;
-        }
 
         @-webkit-keyframes fadeIn {
             from {opacity: 0;} 
@@ -290,19 +301,27 @@
     		List<Room> rooms = (ArrayList<Room>)request.getAttribute("rooms");
     		for(Room room: rooms) {
     	%>
+		<div class="date today">
+			<div class="dateInfo">
+				<div class="day">$<%=room.getPrice()%></div>
+			</div>
     		<div class="eventHolder">
     			<div class="event public">
     				<div class="eventInfoHolder">
     					<div class="eventInfo">
     						<h1 class="eventTitle">
-    							Price: $<%=room.getPrice()%> Floor Number: <%=room.getFloor()%> <button class="button1" onClick="test(<%=room.getPrice()%>)">Book Room</button>
+    							Room Number: <%=room.getNumber()%> &nbsp; Floor: <%=room.getFloor()%> &nbsp; Number of Beds: <%=room.getBeds()%> 
+    							&nbsp; Check Out: <%=room.getCheckOut()%> &nbsp; <button class="button1" onClick="test(<%=room.getNumber()%>, <%=room.getCheckIn()%>, <%=room.getCheckOut()%>)">Book Room</button>
     						</h1>
     					</div>
     				</div>
     			</div>
     		</div>
+    	</div>		
     	<%}%>
-    	<input type="hidden" name="testVar" id="test_var"/>
+    	<input type="hidden" name="roomNum" id="room_num"/>
+    	<input type="hidden" name="checkInRoom" id="check_in_room"/>
+    	<input type="hidden" name="checkOutRoom" id="check_out_room"/>
     	<input type="hidden" name="mainPage" id="main_page"/>
     	</main>
     	<footer>
@@ -310,9 +329,13 @@
     	</footer>
 	</form>
 	<script>
-	function test(x) {
-		var test_var = document.getElementById('test_var');
-		test_var.value = x;
+	function test(x, y, z) {
+		var room_num = document.getElementById('room_num');
+		room_num.value = x;
+		var room_check_in = document.getElementById('check_in_room');
+		room_check_in.value = y;
+		var room_check_out = document.getElementById('check_out_room');
+		room_check_out.value = z;
 		var set_page = document.getElementById('main_page');
 		set_page.value = "book_room";
 		submit();

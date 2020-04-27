@@ -24,6 +24,22 @@ public class Room {
 		
 	}
 	
+	public void setCheckIn(String check_in) {
+		this.check_in = check_in;
+	}
+	
+	public String getCheckIn() {
+		return this.check_in;
+	}
+	
+	public void setCheckOut(String check_out) {
+		this.check_out = check_out;
+	}
+	
+	public String getCheckOut() {
+		return this.check_out;
+	}
+	
 	public void setPrice(String price) {
 		this.price = price;
 	}

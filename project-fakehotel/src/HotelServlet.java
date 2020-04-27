@@ -27,6 +27,7 @@ public class HotelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String user_name;
 	private static String password;
+	private static RequestDispatcher requestDispatcher;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,24 +41,14 @@ public class HotelServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Sign In:" + request.getParameter("signInPage"));
-		System.out.println("Event Page: " + request.getParameter("eventPage"));
-		System.out.println("Main Page: " + request.getParameter("mainPage"));
 		if (request == null) {
 			System.out.println("What happened?");
 		}
 		if(request.getParameter("mainPage") != null && request.getParameter("mainPage").contentEquals("show_rooms")) {
-			System.out.println("go to show rooms");
-			/*
-			 * Partially hard-coded room which is used to test if the page is retrieving information from the front page correctly. 
-			 */
 			if(user_name != null) {
 				String price = request.getParameter("price");
 				String check_in = request.getParameter("checkIn");
 				String check_out = request.getParameter("checkOut");
-				System.out.println("Price: " + price + " Check In Date: " + check_in + " Check Out Date: " + check_out);
-				//response.getWriter().append("Price: " + price + " Check In Date: " + check_in + " Check Out Date: " + check_out);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("rooms.jsp");
 				List<Room> rooms = new ArrayList<Room>();
 				
 				Connection connection = null;
@@ -78,26 +69,22 @@ public class HotelServlet extends HttpServlet {
 				 			room.setFloor(rs.getString("floor"));
 				 			room.setGuests(rs.getInt("guests"));
 				 			room.setBeds(rs.getInt("beds"));
+				 			room.setNumber(rs.getInt("roomid"));
+				 			room.setCheckIn(rs.getString("check_in"));
+				 			room.setCheckOut(rs.getString("check_out"));
 				 			rooms.add(room);
 			         }
 			      } catch (Exception e) {
 			         e.printStackTrace();
 			      }
 				request.setAttribute("rooms", rooms);
-				requestDispatcher.forward(request, response);
+				requestDispatch("rooms.jsp", request, response);
 			} else {
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("sign_in_notice.jsp");
-				requestDispatcher.forward(request, response);
+				requestDispatch("sign_in_notice.jsp", request, response);
 			}
 			
 		} else if (request.getParameter("eventPage") != null && request.getParameter("eventPage").contentEquals("events_page")) {
-			/*
-			 * Hard coded events used to test if the events page is retrieving everything correctly- it will draw actual
-			 * events dynamically from the database at run time.
-			 */
-			System.out.println("go to event page");
-			List<Event> events = new ArrayList<Event>();
-			
+			List<Event> events = new ArrayList<Event>();		
 			Connection connection = null;
 		    boolean roomCheck = false;
 		    
@@ -120,14 +107,12 @@ public class HotelServlet extends HttpServlet {
 		         e.printStackTrace();
 		      }
 			request.setAttribute("events", events);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("hotel_events.jsp");
-			requestDispatcher.forward(request, response);
+			requestDispatch("hotel_events.jsp", request, response);
 		} else if (request.getParameter("signInPage") != null && request.getParameter("signInPage").contentEquals("sign_in")) {
 			/*
 			 * Switch to "Sign In" page.
 			 */
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("hotel_sign_in.html");
-			requestDispatcher.forward(request, response);
+			requestDispatch("hotel_sign_in.html", request, response);
 		} else if (request.getParameter("mainPage") != null && request.getParameter("mainPage").contentEquals("main_page")) {
 			/*
 			 * Transfer back to main page, but with log in information- this info should be stored in the database. 
@@ -164,30 +149,36 @@ public class HotelServlet extends HttpServlet {
 			         preparedStmt2.setString(2, password);
 			         preparedStmt2.execute();
 			         connection.close();
-		        	 
-		         }
-		         else {
-			         System.out.println("Welcome Back");
+			         requestDispatch("new-user.html", request, response);
+		         } else {
+			        System.out.println("Welcome Back");
+			        requestDispatch("hotel-mockup.html", request, response);
 		         }
 		      } catch (Exception e) {
 		         e.printStackTrace();
 		      }
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("hotel-mockup.html");
-			requestDispatcher.forward(request, response);
 		} else if (request.getParameter("mainPage") != null && request.getParameter("mainPage").contentEquals("book_room")) {
-			System.out.println(request.getAttribute("testVar"));
-			request.setAttribute("room_number", request.getAttribute("testVar"));
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("successful_room_booking.jsp");
-			requestDispatcher.forward(request, response);
+			String room_number = (String) request.getParameter("roomNum");
+			System.out.println("ROOM NUMBER: " + room_number);
+			String room_check_in = (String) request.getParameter("checkInRoom");
+			String room_check_out = (String) request.getParameter("checkOutRoom");
+			request.setAttribute("room_number", room_number);
+			String booking = "Room Number: " + room_number + " Check In Date: " + room_check_in + " Check Out Date: " + room_check_out;
+			/*
+			 * ***************************************************************************************************
+			 * Write a query here to add 'booking' to a user's previous bookings- should just be a string entry on the User table
+			 * ***************************************************************************************************
+			 */
+			requestDispatch("successful_room_booking.jsp", request, response);
 			
 		} else if (request.getParameter("mainPage") != null && request.getParameter("mainPage").contentEquals("after_booking")) {
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("hotel-mockup.html");
-			requestDispatcher.forward(request, response);
+			requestDispatch("hotel-mockup.html", request, response);
+		} else if (request.getParameter("mainPage") != null && request.getParameter("mainPage").contentEquals("after_registering")) {
+			requestDispatch("hotel-mockup.html", request, response);
 		} else {
 			System.out.println("Whatever else:");
 			System.out.println(request.getParameter("mainPage") + request.getParameter("eventPage"));
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("hotel-mockup.html");
-			requestDispatcher.forward(request, response);
+			requestDispatch("hotel-mockup.html", request, response);
 		}
 		
 	}
@@ -200,9 +191,32 @@ public class HotelServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	
+	/**
+	 * Simple setter method for the static username and password; this is used at various points of the servlet to 
+	 * see if a user has signed in or not, determining if they are allowed to check out a room. 
+	 * @param username
+	 * @param pass_word
+	 */
 	private void setUserAndPassword(String username, String pass_word) {
 		user_name = username;
 		password = pass_word;
+	}
+	
+	/**
+	 * Generic dispatch method used to switch between HTML/jsp pages, based on the given path. 
+	 * @param path
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	private void requestDispatch(String path, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		try {
+			requestDispatcher = request.getRequestDispatcher(path);
+			requestDispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
