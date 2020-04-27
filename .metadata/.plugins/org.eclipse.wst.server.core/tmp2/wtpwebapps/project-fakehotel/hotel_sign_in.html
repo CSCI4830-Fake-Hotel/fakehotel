@@ -74,6 +74,7 @@
         .button1 {
             letter-spacing: 0.13em;
             font-size: 0.8rem;
+            color: white;
             font-weight: bold;
             display: inline-block;
             padding: 0.75em;
@@ -258,36 +259,6 @@
     </header>
     </div>
     <main>
-    	<div class="container">
-  		<!-- Modal -->
-  			<div class="modal fade" id="myModal" role="dialog">
-    			<div class="modal-dialog modal-sm">
-      				<div class="modal-content">
-        				<div class="modal-header">
-          					<button type="button" class="close" data-dismiss="modal">&times;</button>
-          					<h4 class="modal-title">Sign In Information</h4>
-        				</div>
-        				<div class="modal-body">
-          					<div align="left">
-          						<p style="font-size:17px;margin-left: 1em;">Username:</p>
-          					</div>
-          					<div align="center">
-          						<input type="text" id="usernameModal" name="usernameModal">
-          					</div>
-          					<div align="left">
-          						<p style="font-size:17px;margin-left: 1em;">Password:</p>
-          					</div>
-          					<div align="center">
-          						<input type="text" id="passwordModal" name="passwordModal">
-          					</div>
-        				</div>
-        				<div class="modal-footer">
-          					<input type="submit" id="signUp" style="margin-left: 1em;" value="Sign Up" onClick="signUp()">
-        				</div>
-      				</div>
-    			</div>
-  			</div>
-		</div>
         <div class="container">
             <div class="center">
                 <div align="left">
@@ -303,7 +274,7 @@
                     <input type="text" id="password" name="password">
                 </div>
                 <div align="center">
-                    <button type="button" class="modalButton" data-toggle="modal" data-target="#myModal">Open Small Modal</button>
+                    <input type="submit" id="signUp" style="margin-left: 1em;" value="Sign Up" onClick="setPage()">
                     <input type="submit" id="signIn" style="margin-left: 1em;" value="Sign In" onClick="setPage()">
                     <input type="hidden" name="mainPage" id="main_sign_in"/>
                 </div>
@@ -323,16 +294,6 @@
 		var set_page = document.getElementById('main_sign_in');
 		set_page.value = "main_page";
 		submit();
-	}
-	
-	function signUp() {
-		var modal_username = document.getElementById('usernameModal');
-		var modal_password = document.getElementById('passwordModal');
-		var username = document.getElementById('username');
-		var password = document.getElementById('password');
-		username.value = modal_username;
-		password.value = modal_password;
-		modal.style.display = "block";	
 	}
 	
 	function setPageEvents() {

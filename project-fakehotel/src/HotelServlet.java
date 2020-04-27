@@ -169,6 +169,24 @@ public class HotelServlet extends HttpServlet {
 			 * Write a query here to add 'booking' to a user's previous bookings- should just be a string entry on the User table
 			 * ***************************************************************************************************
 			 */
+			
+			 Connection connection = null;
+			    
+			    
+			    try {
+			         DBConnection.getDBConnection(getServletContext());
+			         connection = DBConnection.connection;
+			         String selectSQL = "UPDATE USERS SET reservations = ? WHERE username LIKE ? AND password LIKE ?";
+			         PreparedStatement preparedStmt = connection.prepareStatement(selectSQL);
+			         preparedStmt.setString(1, booking);
+			         preparedStmt.setString(2, user_name);
+			         preparedStmt.setString(3, password);
+			         preparedStmt.execute();
+			         
+			    	} catch (Exception e) {
+			         e.printStackTrace();
+			    	}
+			
 			requestDispatch("successful_room_booking.jsp", request, response);
 			
 		} else if (request.getParameter("mainPage") != null && request.getParameter("mainPage").contentEquals("after_booking")) {
