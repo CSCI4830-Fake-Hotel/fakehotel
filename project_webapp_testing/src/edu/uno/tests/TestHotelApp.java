@@ -22,12 +22,79 @@ public class TestHotelApp {
       // driver = new FirefoxDriver();
       driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
    }
+   
+   @Test
+   public void testViewMap() throws Exception {
+	   driver.get("http://ec2-3-19-63-152.us-east-2.compute.amazonaws.com:8080/fakehotel/HotelServlet");
+		
+	   driver.findElement(By.id("mapButton")).click();
+	   
+	   Thread.sleep(2000);
+	   
+		String expected = "img";
+		String result = driver.findElement(By.xpath("//*[@id=\"mapModal\"]/div/img")).getTagName();
+		//String result = driver.findElement(By.xpath("//*[@id=\"main\"]")).getAttribute("action");
+		Assert.assertEquals(expected, result);
+   }
+   
+   @Test
+   public void testBallRoomImages() throws Exception {
+	   driver.get("http://ec2-3-19-63-152.us-east-2.compute.amazonaws.com:8080/fakehotel/HotelServlet");
+		
+	   driver.findElement(By.xpath("//*[@id=\"background\"]/header/button[3]")).click();
+	   
+	   Thread.sleep(2000);
+	   
+	   driver.findElement(By.id("ballroomButton")).click();
+	   Thread.sleep(500);
+	   driver.findElement(By.id("ballroomA")).getTagName();
+		String expected = "img";
+		String result = driver.findElement(By.id("ballroomA"
+				+ "")).getTagName();
+		//String result = driver.findElement(By.xpath("//*[@id=\"main\"]")).getAttribute("action");
+		Assert.assertEquals(expected, result);
+   }
 
    @Test
-   public void testClassSearch() throws Exception {
-	   driver.get("http://ec2-3-19-63-152.us-east-2.compute.amazonaws.com:8080/project-fakehotel/HotelServlet");
+   public void testConfRoomImage() throws Exception {
+	   driver.get("http://ec2-3-19-63-152.us-east-2.compute.amazonaws.com:8080/fakehotel/HotelServlet");
 		
-	   driver.findElement(By.xpath("//*[@id=\"background\"]/header/button[1]")).click();
+	   driver.findElement(By.xpath("//*[@id=\"background\"]/header/button[3]")).click();
+	   
+	   Thread.sleep(2000);
+	   
+	   driver.findElement(By.id("conferenceButton")).click();
+	   Thread.sleep(500);
+	   driver.findElement(By.id("conference")).getTagName();
+		String expected = "img";
+		String result = driver.findElement(By.id("conference")).getTagName();
+		//String result = driver.findElement(By.xpath("//*[@id=\"main\"]")).getAttribute("action");
+		Assert.assertEquals(expected, result);
+   }
+   
+   @Test
+   public void testViewEvents() throws Exception {
+	   driver.get("http://ec2-3-19-63-152.us-east-2.compute.amazonaws.com:8080/fakehotel/HotelServlet");
+		
+	   driver.findElement(By.xpath("//*[@id=\"background\"]/header/button[3]")).click();
+	   
+	   Thread.sleep(2000);
+	   
+	   	
+		
+		String expected = "25th Annual Changes in Financial Analyzation Methods Conference";
+		String result = driver.findElement(By.xpath("//*[@id=\"events_form\"]/main/div[2]/div[2]/div/div/div/h1")).getText();
+		//String result = driver.findElement(By.xpath("//*[@id=\"main\"]")).getAttribute("action");
+		Assert.assertEquals(expected, result);
+   }
+   
+		
+		
+   @Test
+   public void testLogin() throws Exception {
+	   driver.get("http://ec2-3-19-63-152.us-east-2.compute.amazonaws.com:8080/fakehotel/HotelServlet");
+		
+	   driver.findElement(By.xpath("//*[@id=\"background\"]/header/button[2]")).click();
 	   
 	   Thread.sleep(2000);
 	   
@@ -38,7 +105,7 @@ public class TestHotelApp {
 		driver.findElement(By.id("password")).click();
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("1234");
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		driver.findElement(By.id("signIn")).click();
 		Thread.sleep(3000);
 		
