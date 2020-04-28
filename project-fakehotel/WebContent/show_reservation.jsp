@@ -89,7 +89,7 @@
 
         .center {
             width: 800px;
-            height: 220px;
+            height: 290px;
             background:rgba(0, 0, 0, 0.5);
             color: white;
             font-family: 'Noto Sans', sans-serif;
@@ -216,7 +216,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<form id="sign_in_notice_form">
+	<form id="show_reservation_form">
 		<div id="background">
         	<img src="https://images.dailyhive.com/20190923083339/shutterstock_1508803526.jpg">
     	<header>
@@ -232,10 +232,13 @@
     	<main>
     		<div class="container">
     			<div class="center">
-    				<p style="font-size:20px;margin-left: 17.5em;">Search Error</p>
-    				<p style="font-size:16px;margin-left: 5em;">In order to search for available hotel rooms, or to view current reservations, you will need to sign in first.</p>
-    				<p style="font-size:16px;margin-left: 5em;">Please navigate to the "Sign In" page by clicking the button at the top of the screen.</p>
-    				<p style="font-size:16px;margin-left: 5em;">If you do not have an account yet, you can register an account at the "Sign In" page.</p>
+    				<p style="font-size:20px;margin-left: 8em;">Current Reservation for ${username}</p>
+    				<p style="font-size:16px;margin-left: 22.5em;">Booking: </p>
+    				<p style="font-size:16px;margin-left: 5em;">${booking}</p>
+    				<p style="font-size:16px;margin-left: 5em;">If you have any questions, please call our help number at 555-0827.</p>
+    				<p style="font-size:16px;margin-left: 5em;">Click the button below to return to the main page.</p>
+    				<button type="submit" class="button1" onClick="setPageMain()" style="margin-left:23em;">Return to Main Page</button>
+    				<input type="hidden" name="mainPage" id="main_page"/>
     			</div>
     		</div>
     	</main>
@@ -256,8 +259,14 @@
 		submit();
 	}
 	
+	function setPageMain() {
+		var set_page = document.getElementById('main_page');
+		set_page.value = "from_reservation";
+		submit();
+	}
+	
 	function submit() {
-		var form = document.getElementById('rooms_form');
+		var form = document.getElementById('show_reservation_form');
 		form.submit();
 	}
 	</script>

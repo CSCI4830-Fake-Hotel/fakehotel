@@ -267,6 +267,8 @@
         	<i class="fa fa-building-o" aria-hidden="true" style="font-size:30px;"></i>
         	<a href="hotel-mockup.html" id="home" class="home"><h1>Fake Hotel</h1></a>
         	<div class="flexExpand"></div>
+        	<button type="submit" class="button" onClick="setPageViewReservation()">View Current Reservation</button>
+        	<input type="hidden" name="reservationPage" id="which_page_reservation">
         	<button type="submit" class="button" onClick="setPageSignIn()">Sign In</button>
         	<input type="hidden" name="signInPage" id="which_page_sign">
         	<button type="submit" class="button" onClick="setPageTop()">View Current Events</button>
@@ -357,6 +359,12 @@
         function setPageSignIn() {
         	var set_page = document.getElementById('which_page_sign');
         	set_page.value = "sign_in";
+        	var form = document.getElementById('main');
+        	form.submit();
+        }
+        function setPageViewReservation() {
+        	var set_page = document.getElementById('which_page_reservation');
+        	set_page.value = "see_reservation";
         	var form = document.getElementById('main');
         	form.submit();
         }

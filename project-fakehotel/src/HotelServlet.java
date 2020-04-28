@@ -163,7 +163,7 @@ public class HotelServlet extends HttpServlet {
 			String room_check_in = (String) request.getParameter("checkInRoom");
 			String room_check_out = (String) request.getParameter("checkOutRoom");
 			request.setAttribute("room_number", room_number);
-			String booking = "Room Number: " + room_number + " Check In Date: " + room_check_in + " Check Out Date: " + room_check_out;
+			String booking = "Room Number: " + room_number + " Check In Date: 05/01/2020" + " Check Out Date: 05//04/2020";
 			/*
 			 * ***************************************************************************************************
 			 * Write a query here to add 'booking' to a user's previous bookings- should just be a string entry on the User table
@@ -193,6 +193,30 @@ public class HotelServlet extends HttpServlet {
 			requestDispatch("hotel-mockup.html", request, response);
 		} else if (request.getParameter("mainPage") != null && request.getParameter("mainPage").contentEquals("after_registering")) {
 			requestDispatch("hotel-mockup.html", request, response);
+		} else if (request.getParameter("reservationPage") != null && request.getParameter("reservationPage").contentEquals("see_reservation")) {
+			if(user_name != null) {
+				request.setAttribute("username", user_name);
+				Connection connection = null;
+				String booking = "";
+				try {
+					DBConnection.getDBConnection(getServletContext());
+					connection = DBConnection.connection;
+					String selectSQL = "SELECT * FROM USERS WHERE username LIKE ? AND password LIKE ?";
+					PreparedStatement preparedStatement = connection.prepareStatement(selectSQL);
+					preparedStatement.setString(1, user_name);
+					preparedStatement.setString(2, password);
+					ResultSet rs = preparedStatement.executeQuery();
+					while(rs.next()) {
+						booking = rs.getString("reservations");
+					}
+					request.setAttribute("booking", booking);
+					requestDispatch("show_reservation.jsp", request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				requestDispatch("sign_in_notice.jsp", request, response);
+			}
 		} else {
 			System.out.println("Whatever else:");
 			System.out.println(request.getParameter("mainPage") + request.getParameter("eventPage"));
