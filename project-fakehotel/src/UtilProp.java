@@ -10,7 +10,7 @@ public class UtilProp {
    static String _PROP_FILENAME_WIN_LOCAL = "C:\\Users\\gageh\\git\\fakehotel\\project-fakehotel\\WebContent\\WEB-INF\\config.properties";
    static String _PROP_FILENAME_OSX_LOCAL = "/project-fakehotel/WebContent/WEB-INF/config.properties";
    // * Remote server path
-   static String _PROP_FILENAME_REMOTE = "/var/lib/tomcat7/webapps/webproject/config.properties";
+   static String _PROP_FILENAME_REMOTE = "/var/lib/tomcat7/webapps/project-fakehotel/WEB-INF/config.properties";
    static Properties prop = new Properties();
 
    public static void loadProperty() throws Exception {

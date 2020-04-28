@@ -13,5 +13,8 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="G:/My Drive/SWeng/tomcat/lib/servlet-api.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="G:/My Drive/SWeng/selenium-server-standalone-3.141.59.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
