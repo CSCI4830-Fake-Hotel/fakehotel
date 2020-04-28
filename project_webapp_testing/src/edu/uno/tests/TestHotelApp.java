@@ -113,21 +113,6 @@ public class TestHotelApp {
 		String result = driver.findElement(By.xpath("//*[@id=\"main\"]/main/div/div/p")).getText();
 		//String result = driver.findElement(By.xpath("//*[@id=\"main\"]")).getAttribute("action");
 		Assert.assertEquals(expected, result);
-	   /*
-      driver.get("https://www.unomaha.edu/registrar/students/before-you-enroll/class-search/index.php");
-      driver.findElement(By.id("subject")).click();
-      Thread.sleep(200);
-      new Select(driver.findElement(By.id("subject"))).selectByVisibleText("Computer Science");
-      Thread.sleep(200);
-      driver.findElement(By.name("weekdays[]")).click();
-      Thread.sleep(200);
-      driver.findElement(By.id("class-search-submit")).click();
-      Thread.sleep(200);
-
-      String expected = "CSCI 1200";
-      String result = driver.findElement(By.xpath("//*[@class=\"dotted-bottom\"]/h2")).getAttribute("innerHTML");
-      Assert.assertEquals(expected, result);
-      */
    }
 
    @After
